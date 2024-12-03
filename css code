@@ -1,51 +1,100 @@
-// Select necessary elements
-const postForm = document.getElementById('post-form');
-const postTitle = document.getElementById('post-title');
-const postContent = document.getElementById('post-content');
-const postsContainer = document.getElementById('posts-container');
-
-// Function to create a new post
-function createPost(title, content) {
-    const postElement = document.createElement('div');
-    postElement.classList.add('post');
-
-    postElement.innerHTML = `
-        <h3>${title}</h3>
-        <p>${content}</p>
-        <button class="comment-btn">Add Comment</button>
-        <div class="comments-section">
-            <h4>Comments</h4>
-            <div class="comments"></div>
-            <input type="text" class="comment-input" placeholder="Write a comment">
-        </div>
-    `;
-
-    // Add comment functionality
-    const commentBtn = postElement.querySelector('.comment-btn');
-    const commentInput = postElement.querySelector('.comment-input');
-    const commentsDiv = postElement.querySelector('.comments');
-
-    commentBtn.addEventListener('click', () => {
-        const commentText = commentInput.value.trim();
-        if (commentText) {
-            const comment = document.createElement('p');
-            comment.textContent = commentText;
-            commentsDiv.appendChild(comment);
-            commentInput.value = '';
-        }
-    });
-
-    postsContainer.prepend(postElement); // Add the new post to the top
+ /* General Reset */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
 }
 
-// Form submission event
-postForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const title = postTitle.value;
-    const content = postContent.value;
+/* Header */
+header {
+    background: #6200ea;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
 
-    if (title && content) {
-        createPost(title, content);
-        postForm.reset();
-    }
-});
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header p {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* Main Content */
+main {
+    padding: 1rem;
+}
+
+#blog-posts, #new-post {
+    margin-bottom: 2rem;
+}
+
+h2 {
+    border-bottom: 2px solid #6200ea;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: #6200ea;
+}
+
+/* Blog Posts */
+#posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.post {
+    background: #fff;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post h3 {
+    margin: 0 0 0.5rem;
+}
+
+.post p {
+    margin: 0;
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form input, form textarea {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    background: #6200ea;
+    color: #fff;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #3700b3;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #333;
+    color: #fff;
+}
