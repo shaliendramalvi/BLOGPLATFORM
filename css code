@@ -1,0 +1,51 @@
+// Select necessary elements
+const postForm = document.getElementById('post-form');
+const postTitle = document.getElementById('post-title');
+const postContent = document.getElementById('post-content');
+const postsContainer = document.getElementById('posts-container');
+
+// Function to create a new post
+function createPost(title, content) {
+    const postElement = document.createElement('div');
+    postElement.classList.add('post');
+
+    postElement.innerHTML = `
+        <h3>${title}</h3>
+        <p>${content}</p>
+        <button class="comment-btn">Add Comment</button>
+        <div class="comments-section">
+            <h4>Comments</h4>
+            <div class="comments"></div>
+            <input type="text" class="comment-input" placeholder="Write a comment">
+        </div>
+    `;
+
+    // Add comment functionality
+    const commentBtn = postElement.querySelector('.comment-btn');
+    const commentInput = postElement.querySelector('.comment-input');
+    const commentsDiv = postElement.querySelector('.comments');
+
+    commentBtn.addEventListener('click', () => {
+        const commentText = commentInput.value.trim();
+        if (commentText) {
+            const comment = document.createElement('p');
+            comment.textContent = commentText;
+            commentsDiv.appendChild(comment);
+            commentInput.value = '';
+        }
+    });
+
+    postsContainer.prepend(postElement); // Add the new post to the top
+}
+
+// Form submission event
+postForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = postTitle.value;
+    const content = postContent.value;
+
+    if (title && content) {
+        createPost(title, content);
+        postForm.reset();
+    }
+});
